@@ -13,6 +13,7 @@ char squareBoard[MAX_NUMBER][MAX_NUMBER];
 
 queue<tuple<pair<int, int>, pair<int, int>, int>> coordinateOfBeadAndMoveCount; //red bead, blue bead, move count
 bool isSucceedGame;
+
 void leanSquareBoadToLeft(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount);
 void leanSquareBoadToRight(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount);
 void leanSquareBoadToUp(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount);
