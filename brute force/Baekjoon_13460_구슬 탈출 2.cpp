@@ -19,6 +19,8 @@ void leanSquareBoadToRight(pair<int, int> coordinateOfRedBead, pair<int, int> co
 void leanSquareBoadToUp(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount);
 void leanSquareBoadToDown(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount);
 
+bool isSameOriginalAndNewCoordinate(pair<int, int> originalCoordinateOfRedBead, pair<int, int> newCoordinateOfRedBead, pair<int, int> originalCoordinateOfBlueBead, pair<int, int> newCoordinateOfBlueBead);
+
 int N, M;
 int main() {
 	cin >> N >> M;
@@ -42,30 +44,31 @@ int main() {
 		}
 	}
 	
-	int numberOfMoveCount = -1;
+	int movingCountOfSuccess = -1;
 
 	coordinateOfBeadAndMoveCount.push(make_tuple(coordinateOfRedBead, coordinateOfBlueBead, 0));
+
 	while (!coordinateOfBeadAndMoveCount.empty()) {
 		tuple<pair<int, int>, pair<int, int>, int> currentCoordinateOfBeadAndCount = coordinateOfBeadAndMoveCount.front();
 		
 		pair<int, int> coordinateOfRedBead = get<0>(currentCoordinateOfBeadAndCount);
 		pair<int, int> coordinateOfBlueBead = get<1>(currentCoordinateOfBeadAndCount);
-		int currentMoveCount = get<2>(currentCoordinateOfBeadAndCount);
+		int nextMoveCount = get<2>(currentCoordinateOfBeadAndCount) + 1;
 
 		coordinateOfBeadAndMoveCount.pop();
 		
-		leanSquareBoadToLeft(coordinateOfRedBead, coordinateOfBlueBead, currentMoveCount);
-		leanSquareBoadToRight(coordinateOfRedBead, coordinateOfBlueBead, currentMoveCount);
-		leanSquareBoadToUp(coordinateOfRedBead, coordinateOfBlueBead, currentMoveCount);
-		leanSquareBoadToDown(coordinateOfRedBead, coordinateOfBlueBead, currentMoveCount);
+		leanSquareBoadToLeft(coordinateOfRedBead, coordinateOfBlueBead, nextMoveCount);
+		leanSquareBoadToRight(coordinateOfRedBead, coordinateOfBlueBead, nextMoveCount);
+		leanSquareBoadToUp(coordinateOfRedBead, coordinateOfBlueBead, nextMoveCount);
+		leanSquareBoadToDown(coordinateOfRedBead, coordinateOfBlueBead, nextMoveCount);
 
 		if (isSucceedGame == true) {
-			numberOfMoveCount = currentMoveCount + 1;
+			movingCountOfSuccess = nextMoveCount;
 			break;
 		}
 	}
 
-	cout << numberOfMoveCount << '\n';
+	cout << movingCountOfSuccess << '\n';
 }
 
 void leanSquareBoadToLeft(pair<int, int> coordinateOfRedBead, pair<int, int> coordinateOfBlueBead, int currentMoveCount) {
@@ -73,8 +76,6 @@ void leanSquareBoadToLeft(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 	int yCoordinateOfRedBead = coordinateOfRedBead.second;
 	int xCoordinateOfBlueBead = coordinateOfBlueBead.first;
 	int yCoordinateOfBlueBead = coordinateOfBlueBead.second;
-
-	currentMoveCount += 1;
 
 	bool isRedBeadArrivedAtHole = false;
 	bool isBlueBeadArrivedAtHole = false;
@@ -101,8 +102,11 @@ void leanSquareBoadToLeft(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 			yCoordinateOfBlueBead += 1;
 		}
 	}
+	
+	pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
+	pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
 
-	if (xCoordinateOfRedBead == coordinateOfRedBead.first && yCoordinateOfRedBead == coordinateOfRedBead.second && xCoordinateOfBlueBead == coordinateOfBlueBead.first &&yCoordinateOfBlueBead == coordinateOfBlueBead.second){
+	if (isSameOriginalAndNewCoordinate(coordinateOfRedBead, newCoordinateOfRedBead, coordinateOfBlueBead, newCoordinateOfBlueBead)) {
 		return;
 	}
 
@@ -110,8 +114,6 @@ void leanSquareBoadToLeft(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 		isSucceedGame = true;
 	}
 	else if (isRedBeadArrivedAtHole == false && isBlueBeadArrivedAtHole == false && currentMoveCount < MAX_MOVE_NUMBER) {
-		pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
-		pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
 		coordinateOfBeadAndMoveCount.push(make_tuple(newCoordinateOfRedBead, newCoordinateOfBlueBead, currentMoveCount));
 	}
 }
@@ -121,8 +123,6 @@ void leanSquareBoadToRight(pair<int, int> coordinateOfRedBead, pair<int, int> co
 	int yCoordinateOfRedBead = coordinateOfRedBead.second;
 	int xCoordinateOfBlueBead = coordinateOfBlueBead.first;
 	int yCoordinateOfBlueBead = coordinateOfBlueBead.second;
-
-	currentMoveCount += 1;
 
 	bool isRedBeadArrivedAtHole = false;
 	bool isBlueBeadArrivedAtHole = false;
@@ -150,7 +150,10 @@ void leanSquareBoadToRight(pair<int, int> coordinateOfRedBead, pair<int, int> co
 		}
 	}
 
-	if (xCoordinateOfRedBead == coordinateOfRedBead.first && yCoordinateOfRedBead == coordinateOfRedBead.second && xCoordinateOfBlueBead == coordinateOfBlueBead.first &&yCoordinateOfBlueBead == coordinateOfBlueBead.second) {
+	pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
+	pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
+
+	if (isSameOriginalAndNewCoordinate(coordinateOfRedBead, newCoordinateOfRedBead, coordinateOfBlueBead, newCoordinateOfBlueBead)) {
 		return;
 	}
 
@@ -158,8 +161,6 @@ void leanSquareBoadToRight(pair<int, int> coordinateOfRedBead, pair<int, int> co
 		isSucceedGame = true;
 	}
 	else if (isRedBeadArrivedAtHole == false && isBlueBeadArrivedAtHole == false && currentMoveCount < MAX_MOVE_NUMBER) {
-		pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
-		pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
 		coordinateOfBeadAndMoveCount.push(make_tuple(newCoordinateOfRedBead, newCoordinateOfBlueBead, currentMoveCount));
 	}
 }
@@ -169,8 +170,6 @@ void leanSquareBoadToUp(pair<int, int> coordinateOfRedBead, pair<int, int> coord
 	int yCoordinateOfRedBead = coordinateOfRedBead.second;
 	int xCoordinateOfBlueBead = coordinateOfBlueBead.first;
 	int yCoordinateOfBlueBead = coordinateOfBlueBead.second;
-
-	currentMoveCount += 1;
 
 	bool isRedBeadArrivedAtHole = false;
 	bool isBlueBeadArrivedAtHole = false;
@@ -198,7 +197,10 @@ void leanSquareBoadToUp(pair<int, int> coordinateOfRedBead, pair<int, int> coord
 		}
 	}
 
-	if (xCoordinateOfRedBead == coordinateOfRedBead.first && yCoordinateOfRedBead == coordinateOfRedBead.second && xCoordinateOfBlueBead == coordinateOfBlueBead.first &&yCoordinateOfBlueBead == coordinateOfBlueBead.second) {
+	pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
+	pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
+
+	if (isSameOriginalAndNewCoordinate(coordinateOfRedBead, newCoordinateOfRedBead, coordinateOfBlueBead, newCoordinateOfBlueBead)) {
 		return;
 	}
 
@@ -206,8 +208,6 @@ void leanSquareBoadToUp(pair<int, int> coordinateOfRedBead, pair<int, int> coord
 		isSucceedGame = true;
 	}
 	else if (isRedBeadArrivedAtHole == false && isBlueBeadArrivedAtHole == false && currentMoveCount < MAX_MOVE_NUMBER) {
-		pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
-		pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
 		coordinateOfBeadAndMoveCount.push(make_tuple(newCoordinateOfRedBead, newCoordinateOfBlueBead, currentMoveCount));
 	}
 }
@@ -217,8 +217,6 @@ void leanSquareBoadToDown(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 	int yCoordinateOfRedBead = coordinateOfRedBead.second;
 	int xCoordinateOfBlueBead = coordinateOfBlueBead.first;
 	int yCoordinateOfBlueBead = coordinateOfBlueBead.second;
-
-	currentMoveCount += 1;
 
 	bool isRedBeadArrivedAtHole = false;
 	bool isBlueBeadArrivedAtHole = false;
@@ -246,7 +244,10 @@ void leanSquareBoadToDown(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 		}
 	}
 
-	if (xCoordinateOfRedBead == coordinateOfRedBead.first && yCoordinateOfRedBead == coordinateOfRedBead.second && xCoordinateOfBlueBead == coordinateOfBlueBead.first &&yCoordinateOfBlueBead == coordinateOfBlueBead.second) {
+	pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
+	pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
+
+	if (isSameOriginalAndNewCoordinate(coordinateOfRedBead, newCoordinateOfRedBead, coordinateOfBlueBead, newCoordinateOfBlueBead)) {
 		return;
 	}
 
@@ -254,8 +255,14 @@ void leanSquareBoadToDown(pair<int, int> coordinateOfRedBead, pair<int, int> coo
 		isSucceedGame = true;
 	}
 	else if (isRedBeadArrivedAtHole == false && isBlueBeadArrivedAtHole == false && currentMoveCount < MAX_MOVE_NUMBER) {
-		pair<int, int> newCoordinateOfRedBead = make_pair(xCoordinateOfRedBead, yCoordinateOfRedBead);
-		pair<int, int> newCoordinateOfBlueBead = make_pair(xCoordinateOfBlueBead, yCoordinateOfBlueBead);
 		coordinateOfBeadAndMoveCount.push(make_tuple(newCoordinateOfRedBead, newCoordinateOfBlueBead, currentMoveCount));
 	}
+}
+
+bool isSameOriginalAndNewCoordinate(pair<int, int> originalCoordinateOfRedBead, pair<int, int> newCoordinateOfRedBead, pair<int, int> originalCoordinateOfBlueBead, pair<int, int> newCoordinateOfBlueBead) {
+	if (originalCoordinateOfRedBead == newCoordinateOfRedBead && originalCoordinateOfBlueBead == newCoordinateOfBlueBead) {
+		return true;
+	}
+
+	return false;
 }
