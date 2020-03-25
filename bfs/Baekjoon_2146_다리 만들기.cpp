@@ -1,7 +1,7 @@
-/*
+ï»¿/*
 	problem site	:	baekjoon
 	problem number	:	2146
-	problem name	:	´Ù¸® ¸¸µé±â
+	problem name	:	ë‹¤ë¦¬ ë§Œë“¤ê¸°
 	algorithm		:	bfs + dfs
 */
 
