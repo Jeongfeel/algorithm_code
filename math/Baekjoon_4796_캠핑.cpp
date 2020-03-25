@@ -1,8 +1,8 @@
-/*
+﻿/*
 	problem site	:	baekjoon
 	problem number	:	4796
-	problem name	:	ķ��
-	algorithm		:	math
+	problem name	:	캠핑
+	algorithm	:	math
 */
 
 #include <iostream>

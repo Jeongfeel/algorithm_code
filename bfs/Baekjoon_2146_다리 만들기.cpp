@@ -2,7 +2,7 @@
 	problem site	:	baekjoon
 	problem number	:	2146
 	problem name	:	다리 만들기
-	algorithm		:	bfs + dfs
+	algorithm	:	bfs + dfs
 */
 
 #include <iostream>

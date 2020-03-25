@@ -1,8 +1,8 @@
-/*
+Ôªø/*
 	problem site	:	baekjoon
 	problem number	:	15683
-	problem name	:	∞®Ω√
-	algorithm		:	brute force
+	problem name	:	Í∞êÏãú
+	algorithm	:	brute force
 */
 
 #include <iostream>

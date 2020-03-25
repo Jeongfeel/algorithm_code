@@ -1,8 +1,8 @@
-/*
+﻿/*
 	problem site	:	baekjoon
 	problem number	:	1057
-	problem name	:	��ʸ�Ʈ
-	algorithm		:	math
+	problem name	:	토너먼트
+	algorithm	:	math
 */
 
 #include <iostream>

@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 	problem site	:	baekjoon
 	problem number	:	2667
-	problem name	:	´ÜÁö¹øÈ£ºÙÀÌ±â
-	algorithm		:	dfs
+	problem name	:	ë‹¨ì§€ë²ˆí˜¸ë¶™ì´ê¸°
+	algorithm	:	dfs
 */
 
 #include <iostream>

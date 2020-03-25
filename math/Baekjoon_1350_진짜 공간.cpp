@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 	problem site	:	baekjoon
 	problem number	:	1350
-	problem name	:	ÁøÂ¥ °ø°£
-	algorithm		:	math
+	problem name	:	ì§„ì§œ ê³µê°„
+	algorithm	:	math
 */
 
 #include <iostream>

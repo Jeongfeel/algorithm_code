@@ -1,8 +1,8 @@
-/*
+ï»¿/*
 	problem site	:	baekjoon
 	problem number	:	16957
-	problem name	:	Ã¼½ºÆÇ À§ÀÇ °ø
-	algorithm		:	brute force
+	problem name	:	ì²´ìŠ¤íŒ ìœ„ì˜ ê³µ
+	algorithm	:	brute force
 */
 
 #include <iostream>
