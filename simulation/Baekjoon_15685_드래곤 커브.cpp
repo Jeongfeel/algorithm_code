@@ -9,7 +9,6 @@ using namespace std;
 const int MAX_NUMBER = 100 + 1;
 bool wholeCoordinatePlane[MAX_NUMBER][MAX_NUMBER];
 bool dragonCurveCoordinatePlane[MAX_NUMBER][MAX_NUMBER];
-bool isDrawnDragonCurve[MAX_NUMBER][MAX_NUMBER];
 
 void makeDragonCurveCoordinatePlane(int xCoordinate, int yCoordinate, int direction, int generation);
 void initDragonCurveCoordinatePlane(pair<int, int> currentCoordinate, pair<int, int> finalCoordinate, queue<pair<int, int>> &currentDragonCurveCoordinate);
@@ -66,14 +65,10 @@ void initDragonCurveCoordinatePlane(pair<int, int> startCoordinate, pair<int, in
 	for (int i = 0; i < MAX_NUMBER; i++) {
 		for (int j = 0; j < MAX_NUMBER; j++) {
 			dragonCurveCoordinatePlane[i][j] = 0;
-			isDrawnDragonCurve[i][j] = 0;
 		}
 	}
 	dragonCurveCoordinatePlane[startCoordinate.first][startCoordinate.second] = 1;
 	dragonCurveCoordinatePlane[finalCoordinate.first][finalCoordinate.second] = 1;
-
-	isDrawnDragonCurve[startCoordinate.first][startCoordinate.second] = 1;
-	isDrawnDragonCurve[finalCoordinate.first][finalCoordinate.second] = 1;
 
 	currentDragonCurveCoordinate.push(startCoordinate);
 	currentDragonCurveCoordinate.push(finalCoordinate);
@@ -100,11 +95,6 @@ void drawDragonCurveAtCoordinatePlane(pair<int, int> currentCoordinate, pair<int
 	int nextX = -(currentCoordinate.second - finalCoordinate.second) + finalCoordinate.first;
 	int nextY = currentCoordinate.first - finalCoordinate.first + finalCoordinate.second;
 
-	if (isDrawnDragonCurve[nextX][nextY] == 1) {
-		return;
-	}
-
-	isDrawnDragonCurve[nextX][nextY] = 1;
 	dragonCurveCoordinatePlane[nextX][nextY] = 1;
 
 	pair<int, int> nextCoordinate = make_pair(nextX, nextY);
